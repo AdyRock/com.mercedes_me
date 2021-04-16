@@ -1,0 +1,67 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.mercedes_me",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Mercedes Me"
+  },
+  "description": {
+    "en": "View the status of you Mercedes in Homey"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Adrian Rockall",
+    "email": "ady@rockall.plus.com"
+  },
+  "drivers": [
+    {
+      "id": "car",
+      "name": {
+        "en": "car"
+      },
+      "class": "other",
+      "capabilities": [
+        "alarm_generic",
+        "locked"
+      ],
+      "images": {
+        "small": "/drivers/car/assets/images/small.png",
+        "large": "/drivers/car/assets/images/large.png",
+        "xlarge": "/drivers/car/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        }
+      ]
+    }
+  ]
+}

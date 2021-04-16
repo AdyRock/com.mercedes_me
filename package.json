@@ -1,0 +1,11 @@
+{
+  "name": "com.mercedes_me",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.1.0"
+  },
+  "dependencies": {
+    "homey-oauth2app": "^3.2.1"
+  }
+}

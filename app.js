@@ -3,6 +3,7 @@ if (process.env.DEBUG === '1')
 {
     require('inspector').open(9222, '0.0.0.0', true);
 }
+const nodemailer = require("nodemailer");
 
 const Homey = require('homey');
 const { OAuth2App } = require('/lib/homey-oauth2app');
@@ -168,7 +169,7 @@ module.exports = class MercedesMeApp extends OAuth2App
             {
                 this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
             }
-            this.homey.api.realtime('com.linktap.logupdated', { 'log': this.diagLog });
+            this.homey.api.realtime('com.mercedes_me.logupdated', { 'log': this.diagLog });
         }
     }
 
@@ -179,35 +180,11 @@ module.exports = class MercedesMeApp extends OAuth2App
         let logData;
         if (body.logType == "diag")
         {
-            logData = Homey.ManagerSettings.get('diagLog');
+            logData = this.diagLog;
         }
         else
         {
-            logData = JSON.parse(this.detectedDevices);
-            if (logData)
-            {
-                let gNum = 1;
-                for (const gateway of logData)
-                {
-                    // rename the gateway ID
-                    gateway.location =
-                        gateway.gatewayId = `GateWay ${gNum}`;
-                    gNum++;
-
-                    let vNum = 1;
-                    for (const tapLinker of gateway.taplinker)
-                    {
-                        tapLinker.taplinkerId = `tapLinker ${vNum}`;
-                        vNum++;
-                    }
-                }
-            }
-            else
-            {
-                throw (new Error("No data to send"));
-            }
-
-            logData = this.varToString(logData);
+            return "No data";
         }
 
         while (tries-- > 0)
@@ -238,7 +215,7 @@ module.exports = class MercedesMeApp extends OAuth2App
                 {
                     from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
                     to: Homey.env.MAIL_RECIPIENT, // list of receivers
-                    subject: "LinkTap " + body.logType + " log", // Subject line
+                    subject: "Mercedes Me " + body.logType + " log", // Subject line
                     text: logData // plain text body
                 });
 

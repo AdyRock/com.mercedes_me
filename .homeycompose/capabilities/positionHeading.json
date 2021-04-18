@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Heading"
+    },
+    "units" : {
+        "en": "°"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/compass.svg"
+}

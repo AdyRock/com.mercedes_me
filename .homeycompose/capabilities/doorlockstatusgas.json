@@ -1,0 +1,9 @@
+{
+    "type": "string",
+    "title": {
+        "en": "Fuel Door Lock"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/lock.svg"
+}

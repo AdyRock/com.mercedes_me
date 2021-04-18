@@ -28,6 +28,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             try
             {
                 const vs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclestatus`); // 50 calls per hour
+                this.homey.app.updateLog("VS:" + this.homey.app.varToString(vs));
                 if (vs)
                 {
                     for (const iterator of vs)
@@ -49,19 +50,20 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         }
                         catch (err)
                         {
-                            console.log(err);
+                            this.homey.app.updateLog("VS Error: " + this.homey.app.varToString(err), 0);
                         }
                     }
                 }
             }
             catch (err)
             {
-                console.log(err);
+                this.homey.app.updateLog("VS Error: " + this.homey.app.varToString(err), 0);
             }
 
             try
             {
                 const vl = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclelockstatus`); // 50 calls per hour
+                this.homey.app.updateLog("VL:" + this.homey.app.varToString(vl));
                 if (vl)
                 {
                     for (const iterator of vl)
@@ -71,20 +73,28 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         try
                         {
                             const value = iterator[key].value;
-                            let stringPrefix = key.toLowerCase();
-                            const stringValue = `${stringPrefix}.${value}`;
-                            await this.setCapabilityValue(key, this.homey.__(stringValue));
+                            if (key === "positionHeading")
+                            {
+                                await this.setCapabilityValue(key, Number(value));
+                            }
+                            else
+                            {
+                                const value = iterator[key].value;
+                                let stringPrefix = key.toLowerCase();
+                                const stringValue = `${stringPrefix}.${value}`;
+                                await this.setCapabilityValue(key, this.homey.__(stringValue));
+                            }
                         }
                         catch (err)
                         {
-                            console.log(err);
+                            this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
                         }
                     }
                 }
             }
             catch (err)
             {
-                console.log(err);
+                this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
             }
 
             this.lastDetectionTime1 = Date.now();
@@ -95,8 +105,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             try
             {
                 const fs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/fuelstatus`); // 1 calls per hour
-                // const os = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/payasyoudrive`); // 1 calls per hour
-                // const ev = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/electricvehicle`); // 2 calls per hour
+                this.homey.app.updateLog("FS:" + this.homey.app.varToString(fs));
 
                 if (fs)
                 {
@@ -111,14 +120,70 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         }
                         catch (err)
                         {
-                            console.log(err);
+                            this.homey.app.updateLog("FS Error: " + this.homey.app.varToString(err), 0);
                         }
                     }
                 }
             }
             catch (err)
             {
-                console.log(err);
+                this.homey.app.updateLog("FS Error: " + this.homey.app.varToString(err), 0);
+            }
+
+            try
+            {
+                const os = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/payasyoudrive`); // 1 calls per hour
+                this.homey.app.updateLog("VS:" + this.homey.app.varToString(os));
+
+                if (os)
+                {
+                    for (const iterator of os)
+                    {
+                        console.log(iterator);
+                        const key = Object.keys(iterator)[0];
+                        try
+                        {
+                            const value = iterator[key].value;
+                            await this.setCapabilityValue(key, parseInt(value));
+                        }
+                        catch (err)
+                        {
+                            this.homey.app.updateLog("OS Error: " + this.homey.app.varToString(err), 0);
+                        }
+                    }
+                }
+            }
+            catch (err)
+            {
+                this.homey.app.updateLog("OS Error: " + this.homey.app.varToString(err), 0);
+            }
+
+            try
+            {
+                const ev = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/electricvehicle`); // 2 calls per hour
+                this.homey.app.updateLog("VS:" + this.homey.app.varToString(ev));
+
+                if (ev)
+                {
+                    for (const iterator of ev)
+                    {
+                        console.log(iterator);
+                        const key = Object.keys(iterator)[0];
+                        try
+                        {
+                            const value = iterator[key].value;
+                            await this.setCapabilityValue(key, parseInt(value));
+                        }
+                        catch (err)
+                        {
+                            this.homey.app.updateLog("EV Error: " + this.homey.app.varToString(err), 0);
+                        }
+                    }
+                }
+            }
+            catch (err)
+            {
+                this.homey.app.updateLog("EV Error: " + this.homey.app.varToString(err), 0);
             }
 
             this.lastDetectionTime2 = Date.now();

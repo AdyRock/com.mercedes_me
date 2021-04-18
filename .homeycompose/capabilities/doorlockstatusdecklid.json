@@ -1,0 +1,9 @@
+{
+    "type": "string",
+    "title": {
+        "en": "Deck Lid Lock"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/lock.svg"
+}

@@ -17,14 +17,20 @@
         "windowstatusrearright",
         "rangeliquid",
         "tanklevelpercent",
+        "rangeelectric",
+        "soc",
         "readingLampFrontLeft",
         "readingLampFrontRight",
         "interiorLightsFront",
-        "interiorLightsRear"
+        "interiorLightsRear",
+        "doorlockstatusgas",
+        "doorlockstatusdecklid",
+        "odo",
+        "positionHeading"
     ],
     "images": {
-        "small": "/drivers/car/assets/images/small.png",
-        "large": "/drivers/car/assets/images/large.png"
+        "small": "/drivers/car/assets/images/small.jpg",
+        "large": "/drivers/car/assets/images/large.jpg"
     },
     "pair": [
         {

@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Electric Range"
+    },
+    "units" : {
+        "en": "km"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/battery.svg"
+}

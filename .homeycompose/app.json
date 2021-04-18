@@ -1,8 +1,9 @@
 {
     "id": "com.mercedes_me",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "compatibility": ">=5.0.0",
     "sdk": 3,
+    "brandColor": "#FF7D4B",
     "name": {
         "en": "Mercedes Me"
     },
@@ -26,11 +27,29 @@
     "source": "https://github.com/AdyRock/com.mercedes_me",
     "homeyCommunityTopicId": 46414,
     "images": {
-        "small": "/assets/images/small.png",
-        "large": "/assets/images/large.png"
+        "small": "/assets/images/small.jpg",
+        "large": "/assets/images/large.jpg"
     },
     "author": {
         "name": "Adrian Rockall",
         "email": "ady@rockall.plus.com"
+    },
+    "api": {
+        "getLog": {
+            "method": "get",
+            "path": "/getLog/"
+        },
+        "getDetect": {
+            "method": "get",
+            "path": "/getDetect/"
+        },
+        "clearLog": {
+            "method": "post",
+            "path": "/clearLog/"
+        },
+        "sendLog": {
+            "method": "post",
+            "path": "/sendLog/"
+        }
     }
 }

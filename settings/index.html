@@ -121,15 +121,15 @@
 
             document.getElementById("defaultOpen").click();
 
-            // Homey.on('com.mercedes_me.logupdated', function(data)
-            // {
-            //     diagLogElement.value = data.log;
-            // });
+            Homey.on('com.mercedes_me.logupdated', function(data)
+            {
+                diagLogElement.value = data.log;
+            });
 
-            // Homey.on('com.mercedes_me.detectedDevicesUpdated', function(data)
-            // {
-            //     detectedDevicesElement.value = data.devices;
-            // });
+            Homey.on('com.mercedes_me.detectedDevicesUpdated', function(data)
+            {
+                detectedDevicesElement.value = data.devices;
+            });
 
             Homey.on('settings.set', function()
             {
@@ -169,35 +169,35 @@
                 logEnabledElement.checked = logEnabled;
             });
 
-            // Homey.api('GET', '/getLog/',
-            // {
-            //     notify: true
-            // }, function(err, result)
-            // {
-            //     if (err)
-            //     {
-            //         return Homey.alert(err);
-            //     }
-            //     else
-            //     {
-            //         diagLogElement.value = result;
-            //     }
-            // });
+            Homey.api('GET', '/getLog/',
+            {
+                notify: true
+            }, function(err, result)
+            {
+                if (err)
+                {
+                    return Homey.alert(err);
+                }
+                else
+                {
+                    diagLogElement.value = result;
+                }
+            });
 
-            // Homey.api('GET', '/getDetect/',
-            // {
-            //     notify: true
-            // }, function(err, result)
-            // {
-            //     if (err)
-            //     {
-            //         return Homey.alert(err);
-            //     }
-            //     else
-            //     {
-            //         detectedDevicesElement.value = result;
-            //     }
-            // });
+            Homey.api('GET', '/getDetect/',
+            {
+                notify: true
+            }, function(err, result)
+            {
+                if (err)
+                {
+                    return Homey.alert(err);
+                }
+                else
+                {
+                    detectedDevicesElement.value = result;
+                }
+            });
 
             saveElement.addEventListener('click', function(e)
             {
@@ -230,20 +230,20 @@
 
             clearLogElement.addEventListener('click', function(e)
             {
-                // Homey.api('POST', '/clearLog/',
-                // {
-                //     notify: true
-                // }, function(err, result)
-                // {
-                //     if (err)
-                //     {
-                //         return Homey.alert(err);
-                //     }
-                //     else
-                //     {
-                //         diagLogElement.value = "";
-                //     }
-                // });
+                Homey.api('POST', '/clearLog/',
+                {
+                    notify: true
+                }, function(err, result)
+                {
+                    if (err)
+                    {
+                        return Homey.alert(err);
+                    }
+                    else
+                    {
+                        diagLogElement.value = "";
+                    }
+                });
             });
 
             sendDiagLogElement.addEventListener('click', function(e)
@@ -252,21 +252,21 @@
                 {
                     if (ok)
                     {
-                        // Homey.api('POST', '/sendLog/',
-                        // {
-                        //     notify: true,
-                        //     logType: "diag"
-                        // }, function(err, result)
-                        // {
-                        //     if (err)
-                        //     {
-                        //         return Homey.alert(err);
-                        //     }
-                        //     else
-                        //     {
-                        //         return Homey.alert(result);
-                        //     }
-                        // });
+                        Homey.api('POST', '/sendLog/',
+                        {
+                            notify: true,
+                            logType: "diag"
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
+                                return Homey.alert(err);
+                            }
+                            else
+                            {
+                                return Homey.alert(result);
+                            }
+                        });
                     }
                 });
             });
@@ -277,21 +277,21 @@
                 {
                     if (ok)
                     {
-                        // Homey.api('POST', '/sendLog/',
-                        // {
-                        //     notify: true,
-                        //     logType: "detected"
-                        // }, function(err, result)
-                        // {
-                        //     if (err)
-                        //     {
-                        //         return Homey.alert(err);
-                        //     }
-                        //     else
-                        //     {
-                        //         return Homey.alert(result);
-                        //     }
-                        // });
+                        Homey.api('POST', '/sendLog/',
+                        {
+                            notify: true,
+                            logType: "detected"
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
+                                return Homey.alert(err);
+                            }
+                            else
+                            {
+                                return Homey.alert(result);
+                            }
+                        });
                     }
                 });
             });

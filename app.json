@@ -1,9 +1,10 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.mercedes_me",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
+  "brandColor": "#FF7D4B",
   "name": {
     "en": "Mercedes Me"
   },
@@ -27,12 +28,30 @@
   "source": "https://github.com/AdyRock/com.mercedes_me",
   "homeyCommunityTopicId": 46414,
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png"
+    "small": "/assets/images/small.jpg",
+    "large": "/assets/images/large.jpg"
   },
   "author": {
     "name": "Adrian Rockall",
     "email": "ady@rockall.plus.com"
+  },
+  "api": {
+    "getLog": {
+      "method": "get",
+      "path": "/getLog/"
+    },
+    "getDetect": {
+      "method": "get",
+      "path": "/getDetect/"
+    },
+    "clearLog": {
+      "method": "post",
+      "path": "/clearLog/"
+    },
+    "sendLog": {
+      "method": "post",
+      "path": "/sendLog/"
+    }
   },
   "drivers": [
     {
@@ -54,14 +73,20 @@
         "windowstatusrearright",
         "rangeliquid",
         "tanklevelpercent",
+        "rangeelectric",
+        "soc",
         "readingLampFrontLeft",
         "readingLampFrontRight",
         "interiorLightsFront",
-        "interiorLightsRear"
+        "interiorLightsRear",
+        "doorlockstatusgas",
+        "doorlockstatusdecklid",
+        "odo",
+        "positionHeading"
       ],
       "images": {
-        "small": "/drivers/car/assets/images/small.png",
-        "large": "/drivers/car/assets/images/large.png"
+        "small": "/drivers/car/assets/images/small.jpg",
+        "large": "/drivers/car/assets/images/large.jpg"
       },
       "pair": [
         {
@@ -89,6 +114,24 @@
     }
   ],
   "capabilities": {
+    "doorlockstatusdecklid": {
+      "type": "string",
+      "title": {
+        "en": "Deck Lid Lock"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/lock.svg"
+    },
+    "doorlockstatusgas": {
+      "type": "string",
+      "title": {
+        "en": "Fuel Door Lock"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/lock.svg"
+    },
     "doorlockstatusvehicle": {
       "type": "string",
       "title": {
@@ -152,6 +195,42 @@
       "setable": false,
       "icon": "/assets/light.svg"
     },
+    "odo": {
+      "type": "number",
+      "title": {
+        "en": "Odometer"
+      },
+      "units": {
+        "en": "km"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/odo.svg"
+    },
+    "positionHeading": {
+      "type": "number",
+      "title": {
+        "en": "Heading"
+      },
+      "units": {
+        "en": "°"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/compass.svg"
+    },
+    "rangeelectric": {
+      "type": "number",
+      "title": {
+        "en": "Electric Range"
+      },
+      "units": {
+        "en": "km"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/battery.svg"
+    },
     "rangeliquid": {
       "type": "number",
       "title": {
@@ -181,6 +260,18 @@
       "getable": true,
       "setable": false,
       "icon": "/assets/reading.svg"
+    },
+    "soc": {
+      "type": "number",
+      "title": {
+        "en": "HV Battery"
+      },
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/battery.svg"
     },
     "sunroofstatus": {
       "type": "string",

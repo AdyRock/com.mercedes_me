@@ -1,13 +1,14 @@
 {
   "name": "com.mercedes_me",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "app.js",
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.1.0"
   },
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "promise-queue": "^2.2.5"
+    "promise-queue": "^2.2.5",
+    "nodemailer": "^6.5.0"
   },
   "repository": {
       "type": "git",

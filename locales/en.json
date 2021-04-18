@@ -24,6 +24,14 @@
         "2": "External Locked",
         "3": "Selective Unlocked"
     },
+    "doorlockstatusdecklid": {
+        "true": "Unlocked",
+        "false": "Locked"
+    },
+    "doorlockstatusgas": {
+        "true": "Unlocked",
+        "false": "Locked"
+    },
     "sunroofstatus": {
         "0": "Closed",
         "1": "Full Open",

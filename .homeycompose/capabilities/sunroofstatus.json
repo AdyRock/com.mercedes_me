@@ -1,10 +1,10 @@
 {
     "type": "string",
     "title": {
-        "en": "Sunroof Open"
+        "en": "Sunroof"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/broken.svg"
+    "icon": "/assets/roof.svg"
 
 }

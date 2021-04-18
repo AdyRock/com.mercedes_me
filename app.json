@@ -42,7 +42,11 @@
         "windowstatusrearleft",
         "windowstatusrearright",
         "rangeliquid",
-        "tanklevelpercent"
+        "tanklevelpercent",
+        "readingLampFrontLeft",
+        "readingLampFrontRight",
+        "interiorLightsFront",
+        "interiorLightsRear"
       ],
       "images": {
         "small": "/drivers/car/assets/images/small.png",
@@ -78,47 +82,65 @@
     "doorlockstatusvehicle": {
       "type": "string",
       "title": {
-        "en": "Vehicle Lock Status"
+        "en": "Vehicle Lock"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/lock.svg"
     },
     "doorstatusfrontleft": {
       "type": "string",
       "title": {
-        "en": "Door Front Left Open"
+        "en": "Door Front Left"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/doors.svg"
     },
     "doorstatusfrontright": {
       "type": "string",
       "title": {
-        "en": "Door Front Left Open"
+        "en": "Door Front Right"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/doors.svg"
     },
     "doorstatusrearleft": {
       "type": "string",
       "title": {
-        "en": "Door Rear Left Open"
+        "en": "Door Rear Left"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/doors.svg"
     },
     "doorstatusrearright": {
       "type": "string",
       "title": {
-        "en": "Door Rear Right Open"
+        "en": "Door Rear Right"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/doors.svg"
+    },
+    "interiorLightsFront": {
+      "type": "string",
+      "title": {
+        "en": "Interior Light Front"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/light.svg"
+    },
+    "interiorLightsRear": {
+      "type": "string",
+      "title": {
+        "en": "Interior Light Rear"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/light.svg"
     },
     "rangeliquid": {
       "type": "number",
@@ -130,16 +152,34 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/fuel.svg"
+    },
+    "readingLampFrontLeft": {
+      "type": "string",
+      "title": {
+        "en": "Reading Light Front Left"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/reading.svg"
+    },
+    "readingLampFrontRight": {
+      "type": "string",
+      "title": {
+        "en": "Reading Light Front Right"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/reading.svg"
     },
     "sunroofstatus": {
       "type": "string",
       "title": {
-        "en": "Sunroof Open"
+        "en": "Sunroof"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/roof.svg"
     },
     "tanklevelpercent": {
       "type": "number",
@@ -151,43 +191,43 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/fuel.svg"
     },
     "windowstatusfrontleft": {
       "type": "string",
       "title": {
-        "en": "Window Front Left Open"
+        "en": "Window Front Left"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/window.svg"
     },
     "windowstatusfrontright": {
       "type": "string",
       "title": {
-        "en": "Window Front Right Open"
+        "en": "Window Front Right"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/window.svg"
     },
     "windowstatusrearleft": {
       "type": "string",
       "title": {
-        "en": "Window Rear Left Open"
+        "en": "Window Rear Left"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/window.svg"
     },
     "windowstatusrearright": {
       "type": "string",
       "title": {
-        "en": "Window Rear Right Open"
+        "en": "Window Rear Right"
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/broken.svg"
+      "icon": "/assets/window.svg"
     }
   }
 }

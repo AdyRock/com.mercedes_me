@@ -1,9 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Window Front Left Open"
+        "en": "Window Front Left"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/broken.svg"
+    "icon": "/assets/window.svg"
 }

@@ -16,12 +16,15 @@
         "windowstatusrearleft",
         "windowstatusrearright",
         "rangeliquid",
-        "tanklevelpercent"
+        "tanklevelpercent",
+        "readingLampFrontLeft",
+        "readingLampFrontRight",
+        "interiorLightsFront",
+        "interiorLightsRear"
     ],
     "images": {
         "small": "/drivers/car/assets/images/small.png",
-        "large": "/drivers/car/assets/images/large.png",
-        "xlarge": "/drivers/car/assets/images/xlarge.png"
+        "large": "/drivers/car/assets/images/large.png"
     },
     "pair": [
         {

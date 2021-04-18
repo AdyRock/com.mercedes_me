@@ -1,9 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Door Rear Right"
+        "en": "Interior Light Front"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/doors.svg"
+    "icon": "/assets/light.svg"
 }

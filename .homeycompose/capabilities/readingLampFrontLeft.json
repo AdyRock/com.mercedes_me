@@ -1,9 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Door Rear Right"
+        "en": "Reading Light Front Left"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/doors.svg"
+    "icon": "/assets/reading.svg"
 }

@@ -44,5 +44,9 @@
     "doorstatus": {
         "true": "Open",
         "false": "Closed"
+    },
+    "interiorlights": {
+        "true": "On",
+        "false": "Off"
     }
 }

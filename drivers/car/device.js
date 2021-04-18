@@ -42,6 +42,8 @@ module.exports = class MyBrandDevice extends OAuth2Device
                             stringPrefix = stringPrefix.replace('rear', '');
                             stringPrefix = stringPrefix.replace('left', '');
                             stringPrefix = stringPrefix.replace('right', '');
+                            stringPrefix = stringPrefix.replace('lamp', 'lights');
+                            stringPrefix = stringPrefix.replace('reading', 'interior');
                             const stringValue = `${stringPrefix}.${value}`;
                             await this.setCapabilityValue(key, this.homey.__(stringValue));
                         }

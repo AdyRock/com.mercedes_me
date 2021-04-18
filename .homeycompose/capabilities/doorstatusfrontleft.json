@@ -1,9 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Door Front Left Open"
+        "en": "Door Front Left"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/broken.svg"
+    "icon": "/assets/doors.svg"
 }

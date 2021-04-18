@@ -1,9 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Window Rear Right Open"
+        "en": "Window Rear Right"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/broken.svg"
+    "icon": "/assets/window.svg"
 }

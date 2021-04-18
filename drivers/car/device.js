@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const { OAuth2Device } = require('homey-oauth2app');
+const { OAuth2Device } = require('/lib/homey-oauth2app');
 
 module.exports = class MyBrandDevice extends OAuth2Device
 {

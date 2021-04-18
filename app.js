@@ -5,7 +5,7 @@ if (process.env.DEBUG === '1')
 }
 
 const Homey = require('homey');
-const { OAuth2App } = require('homey-oauth2app');
+const { OAuth2App } = require('/lib/homey-oauth2app');
 const MercedesMeOAuth2Client = require('./lib/MercedesMeOAuth2Client');
 
 module.exports = class MercedesMeApp extends OAuth2App
@@ -15,14 +15,16 @@ module.exports = class MercedesMeApp extends OAuth2App
     static OAUTH2_MULTI_SESSION = false; // Default: false
 //    static OAUTH2_DRIVERS = ['car']; // Default: all drivers
 
-    xyz()
-    {
-
-    }
-
     async onInit()
     {
-        await super.onInit();
+        try
+        {
+            await super.onInit();
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
 
         let ClientID = this.homey.settings.get('ClientID');
         let ClientSecret = this.homey.settings.get('ClientSecret');
@@ -43,7 +45,7 @@ module.exports = class MercedesMeApp extends OAuth2App
         {
             this.homey.settings.set('vin', '');
         }
-        
+
         this.homey.settings.set('logEnabled', true);
 
         if (process.env.DEBUG === '1')

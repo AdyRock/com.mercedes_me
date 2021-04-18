@@ -1,0 +1,9 @@
+{
+    "type": "string",
+    "title": {
+        "en": "Vehicle Lock Status"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/broken.svg"
+}

@@ -1,0 +1,10 @@
+{
+    "type": "string",
+    "title": {
+        "en": "Sunroof Open"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/broken.svg"
+
+}

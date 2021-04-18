@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Fuel Range"
+    },
+    "units" : {
+        "en": "km"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/broken.svg"
+}

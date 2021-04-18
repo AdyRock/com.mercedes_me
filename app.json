@@ -31,8 +31,18 @@
       },
       "class": "other",
       "capabilities": [
-        "alarm_generic",
-        "locked"
+        "doorlockstatusvehicle",
+        "sunroofstatus",
+        "doorstatusfrontleft",
+        "doorstatusfrontright",
+        "doorstatusrearleft",
+        "doorstatusrearright",
+        "windowstatusfrontleft",
+        "windowstatusfrontright",
+        "windowstatusrearleft",
+        "windowstatusrearright",
+        "rangeliquid",
+        "tanklevelpercent"
       ],
       "images": {
         "small": "/drivers/car/assets/images/small.png",
@@ -63,5 +73,121 @@
         }
       ]
     }
-  ]
+  ],
+  "capabilities": {
+    "doorlockstatusvehicle": {
+      "type": "string",
+      "title": {
+        "en": "Vehicle Lock Status"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "doorstatusfrontleft": {
+      "type": "string",
+      "title": {
+        "en": "Door Front Left Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "doorstatusfrontright": {
+      "type": "string",
+      "title": {
+        "en": "Door Front Left Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "doorstatusrearleft": {
+      "type": "string",
+      "title": {
+        "en": "Door Rear Left Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "doorstatusrearright": {
+      "type": "string",
+      "title": {
+        "en": "Door Rear Right Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "rangeliquid": {
+      "type": "number",
+      "title": {
+        "en": "Fuel Range"
+      },
+      "units": {
+        "en": "km"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "sunroofstatus": {
+      "type": "string",
+      "title": {
+        "en": "Sunroof Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "tanklevelpercent": {
+      "type": "number",
+      "title": {
+        "en": "Fuel Level"
+      },
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "windowstatusfrontleft": {
+      "type": "string",
+      "title": {
+        "en": "Window Front Left Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "windowstatusfrontright": {
+      "type": "string",
+      "title": {
+        "en": "Window Front Right Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "windowstatusrearleft": {
+      "type": "string",
+      "title": {
+        "en": "Window Rear Left Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    },
+    "windowstatusrearright": {
+      "type": "string",
+      "title": {
+        "en": "Window Rear Right Open"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/broken.svg"
+    }
+  }
 }

@@ -1,39 +1,49 @@
 {
-  "id": "car",
-  "name": {
-    "en": "car"
-  },
-  "class": "other",
-  "capabilities": [
-    "alarm_generic",
-    "locked"
-  ],
-  "images": {
-    "small": "/drivers/car/assets/images/small.png",
-    "large": "/drivers/car/assets/images/large.png",
-    "xlarge": "/drivers/car/assets/images/xlarge.png"
-  },
-  "pair": [
-    {
-      "id": "login_oauth2",
-      "template": "login_oauth2"
+    "id": "car",
+    "name": {
+        "en": "car"
     },
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_devices"
-      }
+    "class": "other",
+    "capabilities": [
+        "doorlockstatusvehicle",
+        "sunroofstatus",
+        "doorstatusfrontleft",
+        "doorstatusfrontright",
+        "doorstatusrearleft",
+        "doorstatusrearright",
+        "windowstatusfrontleft",
+        "windowstatusfrontright",
+        "windowstatusrearleft",
+        "windowstatusrearright",
+        "rangeliquid",
+        "tanklevelpercent"
+    ],
+    "images": {
+        "small": "/drivers/car/assets/images/small.png",
+        "large": "/drivers/car/assets/images/large.png",
+        "xlarge": "/drivers/car/assets/images/xlarge.png"
     },
-    {
-      "id": "add_devices",
-      "template": "add_devices"
-    }
-  ],
-  "repair": [
-    {
-      "id": "login_oauth2",
-      "template": "login_oauth2"
-    }
-  ]
+    "pair": [
+        {
+            "id": "login_oauth2",
+            "template": "login_oauth2"
+        },
+        {
+            "id": "list_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_devices"
+            }
+        },
+        {
+            "id": "add_devices",
+            "template": "add_devices"
+        }
+    ],
+    "repair": [
+        {
+            "id": "login_oauth2",
+            "template": "login_oauth2"
+        }
+    ]
 }

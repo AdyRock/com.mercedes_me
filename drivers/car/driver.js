@@ -13,16 +13,14 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
 
     async onPairListDevices({ oAuth2Client })
     {
-        const things = await oAuth2Client.getThings();
-        return things.map(thing =>
-        {
-            return {
-                name: thing.name,
-                data:
-                {
-                    id: thing.id,
-                }
-            };
-        });
+        let vehicleId = this.homey.settings.get('vin');
+        const things = await oAuth2Client.getThings(`/vehicles/${vehicleId}/containers/payasyoudrive/`);
+        return [{
+            name: 'My Car',
+            data:
+            {
+                id: vehicleId,
+            }
+        }];
     }
 };

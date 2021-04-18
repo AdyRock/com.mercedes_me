@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Fuel Level"
+    },
+    "units" : {
+        "en": "%"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/broken.svg"
+}

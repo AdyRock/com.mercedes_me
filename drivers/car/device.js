@@ -82,7 +82,10 @@ module.exports = class MyBrandDevice extends OAuth2Device
                                 const value = iterator[key].value;
                                 let stringPrefix = key.toLowerCase();
                                 const stringValue = `${stringPrefix}.${value}`;
-                                await this.setCapabilityValue(key, this.homey.__(stringValue));
+                                const oldValue = this.getCapabilityValue(key);
+                                const newValue = this.homey.__(stringValue);
+                                await this.setCapabilityValue(key, newValue);
+                                this.driver.checkTrigger(this, key, oldValue, newValue);
                             }
                         }
                         catch (err)
@@ -193,5 +196,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
     async onOAuth2Deleted()
     {
         // Clean up here
+        this.homey.clearTimeout( this.timerPollID );
     }
+
 };

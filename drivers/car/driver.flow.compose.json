@@ -1,0 +1,33 @@
+{
+    "triggers": [
+        {
+            "id": "vehicle_locked",
+            "title": {
+                "en": "The car has been locked "
+            },
+            "hint": {
+                "en": "When the car lock status changes to locked"
+            }
+        },
+        {
+            "id": "vehicle_unlocked",
+            "title": {
+                "en": "The car has been unlocked "
+            },
+            "hint": {
+                "en": "When the car lock status changes to unlocked"
+            }
+        }
+    ],
+    "conditions": [
+        {
+            "id": "is_locked",
+            "title": {
+                "en": "Car !{{is|isn't}} locked"
+            },
+            "hint": {
+                "en": "Check the cars locked status"
+            }
+        }
+    ]
+}

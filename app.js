@@ -72,7 +72,7 @@ module.exports = class MercedesMeApp extends OAuth2App
                 updateConfig = true;
             }
 
-            if (updateConfig)
+            if (updateConfig && ClientID && ClientSecret)
             {
                 this.setOAuth2Config({'clientId': ClientID, 'clientSecret': ClientSecret});
                 await this.onOAuth2Init();

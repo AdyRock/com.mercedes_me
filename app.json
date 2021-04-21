@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.mercedes_me",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -52,6 +52,60 @@
       "method": "post",
       "path": "/sendLog/"
     }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "vehicle_locked",
+        "title": {
+          "en": "The car has been locked "
+        },
+        "hint": {
+          "en": "When the car lock status changes to locked"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_unlocked",
+        "title": {
+          "en": "The car has been unlocked "
+        },
+        "hint": {
+          "en": "When the car lock status changes to unlocked"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "is_locked",
+        "title": {
+          "en": "Car !{{is|isn't}} locked"
+        },
+        "hint": {
+          "en": "Check the cars locked status"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      }
+    ]
   },
   "drivers": [
     {

@@ -4,5 +4,8 @@
   },
   "0.1.0": {
     "en": "First release"
+  },
+  "0.1.1": {
+    "en": "Added trigger flow cards for vehicle locked / unlocked and condition card for vehicle is / is not locked"
   }
 }

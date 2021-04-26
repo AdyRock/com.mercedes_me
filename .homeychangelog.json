@@ -7,5 +7,8 @@
   },
   "0.1.1": {
     "en": "Added trigger flow cards for vehicle locked / unlocked and condition card for vehicle is / is not locked"
+  },
+  "0.1.2": {
+    "en": "Added condition card for any window or sunroof open"
   }
 }

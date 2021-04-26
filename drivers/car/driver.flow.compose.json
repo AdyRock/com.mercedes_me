@@ -28,6 +28,15 @@
             "hint": {
                 "en": "Check the cars locked status"
             }
+        },
+        {
+            "id": "is_open",
+            "title": {
+                "en": "A Window or Sunroof !{{is|isn't}} open"
+            },
+            "hint": {
+                "en": "Check if any window or the sunroof is open"
+            }
         }
     ]
 }

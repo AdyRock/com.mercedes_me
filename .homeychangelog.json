@@ -10,5 +10,8 @@
   },
   "0.1.2": {
     "en": "Added condition card for any window or sunroof open"
+  },
+  "0.1.3": {
+    "en": "Added trigger cards for a window or sunroof open / closed and a door or deck lid open / closed"
   }
 }

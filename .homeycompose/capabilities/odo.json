@@ -8,5 +8,6 @@
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/odo.svg"
+    "icon": "/assets/odo.svg",
+    "insights": true
 }

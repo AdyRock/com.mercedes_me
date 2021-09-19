@@ -8,8 +8,30 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
     async onOAuth2Init()
     {
+        if (!this.hasCapability('decklidstatus'))
+        {
+            this.addCapability('decklidstatus');
+        }
+
+        if (!this.hasCapability('locked'))
+        {
+            this.addCapability('locked');
+            this.setClass('lock');
+        }
+
+        this.registerCapabilityListener('locked', this.onCapabilityLocked.bind(this));
+
+        this.lastDetectionTime1 = this.getStoreValue('lastDetectionTime1');
+        this.lastDetectionTime2 = this.getStoreValue('lastDetectionTime2');
+        this.lastDetectionTime3 = this.getStoreValue('lastDetectionTime3');
+
         this.onDevicePoll = this.onDevicePoll.bind(this);
         this.onDevicePoll();
+    }
+
+    async onCapabilityLocked(value, opts)
+    {
+        throw new Error("Not allowed to change the lock state");
     }
 
     async onDevicePoll()
@@ -46,7 +68,10 @@ module.exports = class MyBrandDevice extends OAuth2Device
                             stringPrefix = stringPrefix.replace('lamp', 'lights');
                             stringPrefix = stringPrefix.replace('reading', 'interior');
                             const stringValue = `${stringPrefix}.${value}`;
+                            const oldValue = this.getCapabilityValue(key);
+                            const newValue = this.homey.__(stringValue);
                             await this.setCapabilityValue(key, this.homey.__(stringValue));
+                            this.driver.checkTrigger(this, key, oldValue, newValue);
                         }
                         catch (err)
                         {
@@ -66,6 +91,8 @@ module.exports = class MyBrandDevice extends OAuth2Device
                 this.homey.app.updateLog("VL:" + this.homey.app.varToString(vl));
                 if (vl)
                 {
+                    this.unlocked = false;
+
                     for (const iterator of vl)
                     {
                         console.log(iterator);
@@ -79,7 +106,13 @@ module.exports = class MyBrandDevice extends OAuth2Device
                             }
                             else
                             {
-                                const value = iterator[key].value;
+                                if ((key == 'doorlockstatusdecklid') || (key == 'doorlockstatusvehicle') || (key == 'doorlockstatusgas'))
+                                {
+                                    if ((value == 'true') || (value == '0') || (value == '3'))
+                                    {
+                                        this.unlocked = true;
+                                    }
+                                }
                                 let stringPrefix = key.toLowerCase();
                                 const stringValue = `${stringPrefix}.${value}`;
                                 const oldValue = this.getCapabilityValue(key);
@@ -93,6 +126,8 @@ module.exports = class MyBrandDevice extends OAuth2Device
                             this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
                         }
                     }
+
+                    this.setCapabilityValue('locked', !this.unlocked);
                 }
             }
             catch (err)
@@ -101,6 +136,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             }
 
             this.lastDetectionTime1 = Date.now();
+            this.setStoreValue('lastDetectionTime1', this.lastDetectionTime1);
         }
 
         if (!this.lastDetectionTime2 || (Date.now() - this.lastDetectionTime2 > (1000 * 60 * 60)))
@@ -136,7 +172,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             try
             {
                 const os = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/payasyoudrive`); // 1 calls per hour
-                this.homey.app.updateLog("VS:" + this.homey.app.varToString(os));
+                this.homey.app.updateLog("OS:" + this.homey.app.varToString(os));
 
                 if (os)
                 {
@@ -161,10 +197,16 @@ module.exports = class MyBrandDevice extends OAuth2Device
                 this.homey.app.updateLog("OS Error: " + this.homey.app.varToString(err), 0);
             }
 
+            this.lastDetectionTime2 = Date.now();
+            this.setStoreValue('lastDetectionTime2', this.lastDetectionTime2);
+        }
+
+        if (!this.lastDetectionTime3 || (Date.now() - this.lastDetectionTime3 > (1000 * 60 * 30)))
+        {
             try
             {
                 const ev = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/electricvehicle`); // 2 calls per hour
-                this.homey.app.updateLog("VS:" + this.homey.app.varToString(ev));
+                this.homey.app.updateLog("EV:" + this.homey.app.varToString(ev));
 
                 if (ev)
                 {
@@ -189,14 +231,15 @@ module.exports = class MyBrandDevice extends OAuth2Device
                 this.homey.app.updateLog("EV Error: " + this.homey.app.varToString(err), 0);
             }
 
-            this.lastDetectionTime2 = Date.now();
+            this.lastDetectionTime3 = Date.now();
+            this.setStoreValue('lastDetectionTime3', this.lastDetectionTime3);
         }
     }
 
     async onOAuth2Deleted()
     {
         // Clean up here
-        this.homey.clearTimeout( this.timerPollID );
+        this.homey.clearTimeout(this.timerPollID);
     }
 
 };

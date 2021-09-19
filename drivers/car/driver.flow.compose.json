@@ -3,7 +3,7 @@
         {
             "id": "vehicle_locked",
             "title": {
-                "en": "The car has been locked "
+                "en": "The car has been locked"
             },
             "hint": {
                 "en": "When the car lock status changes to locked"
@@ -12,11 +12,87 @@
         {
             "id": "vehicle_unlocked",
             "title": {
-                "en": "The car has been unlocked "
+                "en": "The car has been unlocked"
             },
             "hint": {
                 "en": "When the car lock status changes to unlocked"
             }
+        },
+        {
+            "id": "door_opened",
+            "title": {
+                "en": "A door has been opened"
+            },
+            "hint": {
+                "en": "When a door status changes to locked"
+            },
+            "tokens": [
+                {
+                    "name": "door",
+                    "type": "string",
+                    "title": {
+                        "en": "door"
+                    },
+                    "example": "doorstatusfrontleft"
+                }
+            ]
+        },
+        {
+            "id": "door_closed",
+            "title": {
+                "en": "A door has been closed"
+            },
+            "hint": {
+                "en": "When the car lock status changes to unlocked"
+            },
+            "tokens": [
+                {
+                    "name": "door",
+                    "type": "string",
+                    "title": {
+                        "en": "door"
+                    },
+                    "example": "doorstatusfrontleft"
+                }
+            ]
+        },
+        {
+            "id": "window_opened",
+            "title": {
+                "en": "A window has been opened"
+            },
+            "hint": {
+                "en": "When a window status changes to locked"
+            },
+            "tokens": [
+                {
+                    "name": "window",
+                    "type": "string",
+                    "title": {
+                        "en": "window"
+                    },
+                    "example": "windowstatusfrontleft"
+                }
+            ]
+        },
+        {
+            "id": "window_closed",
+            "title": {
+                "en": "A window has been closed"
+            },
+            "hint": {
+                "en": "When the car lock status changes to unlocked"
+            },
+            "tokens": [
+                {
+                    "name": "window",
+                    "type": "string",
+                    "title": {
+                        "en": "window"
+                    },
+                    "example": "windowstatusfrontleft"
+                }
+            ]
         }
     ],
     "conditions": [
@@ -36,6 +112,15 @@
             },
             "hint": {
                 "en": "Check if any window or the sunroof is open"
+            }
+        },
+        {
+            "id": "is_door_open",
+            "title": {
+                "en": "A door or decklid !{{is|isn't}} open"
+            },
+            "hint": {
+                "en": "Check if any door or the decklid is open"
             }
         }
     ]

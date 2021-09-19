@@ -53,6 +53,10 @@
         "true": "Open",
         "false": "Closed"
     },
+    "decklidstatus": {
+        "true": "Open",
+        "false": "Closed"
+    },
     "interiorlights": {
         "true": "On",
         "false": "Off"

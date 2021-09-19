@@ -58,7 +58,7 @@
       {
         "id": "vehicle_locked",
         "title": {
-          "en": "The car has been locked "
+          "en": "The car has been locked"
         },
         "hint": {
           "en": "When the car lock status changes to locked"
@@ -74,11 +74,115 @@
       {
         "id": "vehicle_unlocked",
         "title": {
-          "en": "The car has been unlocked "
+          "en": "The car has been unlocked"
         },
         "hint": {
           "en": "When the car lock status changes to unlocked"
         },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "door_opened",
+        "title": {
+          "en": "A door has been opened"
+        },
+        "hint": {
+          "en": "When a door status changes to locked"
+        },
+        "tokens": [
+          {
+            "name": "door",
+            "type": "string",
+            "title": {
+              "en": "door"
+            },
+            "example": "doorstatusfrontleft"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "door_closed",
+        "title": {
+          "en": "A door has been closed"
+        },
+        "hint": {
+          "en": "When the car lock status changes to unlocked"
+        },
+        "tokens": [
+          {
+            "name": "door",
+            "type": "string",
+            "title": {
+              "en": "door"
+            },
+            "example": "doorstatusfrontleft"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "window_opened",
+        "title": {
+          "en": "A window has been opened"
+        },
+        "hint": {
+          "en": "When a window status changes to locked"
+        },
+        "tokens": [
+          {
+            "name": "window",
+            "type": "string",
+            "title": {
+              "en": "window"
+            },
+            "example": "windowstatusfrontleft"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
+      },
+      {
+        "id": "window_closed",
+        "title": {
+          "en": "A window has been closed"
+        },
+        "hint": {
+          "en": "When the car lock status changes to unlocked"
+        },
+        "tokens": [
+          {
+            "name": "window",
+            "type": "string",
+            "title": {
+              "en": "window"
+            },
+            "example": "windowstatusfrontleft"
+          }
+        ],
         "args": [
           {
             "type": "device",
@@ -120,6 +224,22 @@
             "filter": "driver_id=car"
           }
         ]
+      },
+      {
+        "id": "is_door_open",
+        "title": {
+          "en": "A door or decklid !{{is|isn't}} open"
+        },
+        "hint": {
+          "en": "Check if any door or the decklid is open"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=car"
+          }
+        ]
       }
     ]
   },
@@ -129,14 +249,17 @@
       "name": {
         "en": "car"
       },
-      "class": "other",
+      "class": "lock",
       "capabilities": [
+        "locked",
         "doorlockstatusvehicle",
         "sunroofstatus",
         "doorstatusfrontleft",
         "doorstatusfrontright",
         "doorstatusrearleft",
         "doorstatusrearright",
+        "decklidstatus",
+        "doorlockstatusdecklid",
         "windowstatusfrontleft",
         "windowstatusfrontright",
         "windowstatusrearleft",
@@ -150,7 +273,6 @@
         "interiorLightsFront",
         "interiorLightsRear",
         "doorlockstatusgas",
-        "doorlockstatusdecklid",
         "odo",
         "positionHeading"
       ],
@@ -184,6 +306,15 @@
     }
   ],
   "capabilities": {
+    "decklidstatus": {
+      "type": "string",
+      "title": {
+        "en": "Decklid Status"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/trunk.svg"
+    },
     "doorlockstatusdecklid": {
       "type": "string",
       "title": {
@@ -218,7 +349,7 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/doors.svg"
+      "icon": "/assets/doors_left_front.svg"
     },
     "doorstatusfrontright": {
       "type": "string",
@@ -227,7 +358,7 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/doors.svg"
+      "icon": "/assets/doors_right_front.svg"
     },
     "doorstatusrearleft": {
       "type": "string",
@@ -236,7 +367,7 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/doors.svg"
+      "icon": "/assets/doors_left_rear.svg"
     },
     "doorstatusrearright": {
       "type": "string",
@@ -245,7 +376,7 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/doors.svg"
+      "icon": "/assets/doors_right_rear.svg"
     },
     "interiorLightsFront": {
       "type": "string",
@@ -275,7 +406,8 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/odo.svg"
+      "icon": "/assets/odo.svg",
+      "insights": true
     },
     "positionHeading": {
       "type": "number",
@@ -299,7 +431,8 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/battery.svg"
+      "icon": "/assets/battery.svg",
+      "insights": true
     },
     "rangeliquid": {
       "type": "number",
@@ -311,7 +444,8 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/fuel.svg"
+      "icon": "/assets/fuel.svg",
+      "insights": true
     },
     "readingLampFrontLeft": {
       "type": "string",
@@ -341,7 +475,8 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/battery.svg"
+      "icon": "/assets/battery.svg",
+      "insights": true
     },
     "sunroofstatus": {
       "type": "string",
@@ -362,7 +497,8 @@
       },
       "getable": true,
       "setable": false,
-      "icon": "/assets/fuel.svg"
+      "icon": "/assets/fuel.svg",
+      "insights": true
     },
     "windowstatusfrontleft": {
       "type": "string",

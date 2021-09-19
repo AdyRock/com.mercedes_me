@@ -12,6 +12,12 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
         this.vehicleIsLocked = this.homey.flow.getDeviceTriggerCard('vehicle_locked');
         this.vehicleIsUnlocked = this.homey.flow.getDeviceTriggerCard('vehicle_unlocked');
 
+        this.doorOpened = this.homey.flow.getDeviceTriggerCard('door_opened');
+        this.doorClosed = this.homey.flow.getDeviceTriggerCard('door_closed');
+
+        this.windowOpened = this.homey.flow.getDeviceTriggerCard('window_opened');
+        this.windowClosed = this.homey.flow.getDeviceTriggerCard('window_closed');
+
         // Register Condition Flow Cards.
         let isLockedCondition = this.homey.flow.getConditionCard('is_locked');
         isLockedCondition.registerRunListener(async (args, state) =>
@@ -31,10 +37,26 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
             const window4_state = args.device.getCapabilityValue('windowstatusrearright');
 
             return ((sunroof_state !== this.homey.__('sunroofstatus.0')) || // Check for not closed
-                    (window1_state !== this.homey.__('windowstatus.2')) ||
-                    (window2_state !== this.homey.__('windowstatus.2')) ||
-                    (window3_state !== this.homey.__('windowstatus.2')) ||
-                    (window4_state !== this.homey.__('windowstatus.2'))); // Return true if anything is not closed
+                (window1_state !== this.homey.__('windowstatus.2')) ||
+                (window2_state !== this.homey.__('windowstatus.2')) ||
+                (window3_state !== this.homey.__('windowstatus.2')) ||
+                (window4_state !== this.homey.__('windowstatus.2'))); // Return true if anything is not closed
+        });
+
+        let isDoorOpenCondition = this.homey.flow.getConditionCard('is_door_open');
+        isDoorOpenCondition.registerRunListener(async (args, state) =>
+        {
+            const decklid_state = args.device.getCapabilityValue('decklidstatus');
+            const door1_state = args.device.getCapabilityValue('doorstatusfrontleft');
+            const door2_state = args.device.getCapabilityValue('doorstatusfrontright');
+            const door3_state = args.device.getCapabilityValue('doorstatusrearleft');
+            const door4_state = args.device.getCapabilityValue('doorstatusrearright');
+
+            return ((decklid_state !== this.homey.__('decklidstatus.false')) || // Check for not closed
+                (door1_state !== this.homey.__('doorstatus.false')) ||
+                (door2_state !== this.homey.__('doorstatus.false')) ||
+                (door3_state !== this.homey.__('doorstatus.false')) ||
+                (door4_state !== this.homey.__('doorstatus.false'))); // Return true if anything is not closed
         });
     }
 
@@ -51,13 +73,42 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
                 this.vehicleIsLocked.trigger(device);
             }
         }
+        else if (((key === 'decklidstatus') || (key === 'doorstatusfrontleft') || (key === 'doorstatusfrontright') || (key === 'doorstatusrearleft') || (key === 'doorstatusrearright')) && (oldValue !== newValue))
+        {
+            const tokens = {
+                door: key
+            };
+            if (newValue)
+            {
+                this.doorOpened.trigger(device, tokens);
+            }
+            else
+            {
+                this.doorClosed.trigger(device, tokens);
+            }
+        }
+        else if (((key === 'sunroofstatus') || (key === 'windowstatusfrontleft') || (key === 'windowstatusfrontright') || (key === 'windowstatusrearleft') || (key === 'windowstatusrearright')) && (oldValue !== newValue))
+        {
+            const tokens = {
+                window: key
+            };
+            if (newValue)
+            {
+                this.windowOpened.trigger(device, tokens);
+            }
+            else
+            {
+                this.windowClosed.trigger(device, tokens);
+            }
+        }
     }
 
     async onPairListDevices({ oAuth2Client })
     {
         let vehicleId = this.homey.settings.get('vin');
         const things = await oAuth2Client.getThings(`/vehicles/${vehicleId}/containers/payasyoudrive/`);
-        return [{
+        return [
+        {
             name: 'My Car',
             data:
             {

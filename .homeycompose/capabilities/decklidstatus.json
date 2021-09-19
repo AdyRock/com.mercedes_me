@@ -1,9 +1,9 @@
 {
     "type": "string",
     "title": {
-        "en": "Door Front Left"
+        "en": "Decklid Status"
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/doors_left_front.svg"
+    "icon": "/assets/trunk.svg"
 }

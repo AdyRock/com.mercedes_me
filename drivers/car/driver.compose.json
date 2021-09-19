@@ -3,14 +3,17 @@
     "name": {
         "en": "car"
     },
-    "class": "other",
+    "class": "lock",
     "capabilities": [
+        "locked",
         "doorlockstatusvehicle",
         "sunroofstatus",
         "doorstatusfrontleft",
         "doorstatusfrontright",
         "doorstatusrearleft",
         "doorstatusrearright",
+        "decklidstatus",
+        "doorlockstatusdecklid",
         "windowstatusfrontleft",
         "windowstatusfrontright",
         "windowstatusrearleft",
@@ -24,7 +27,6 @@
         "interiorLightsFront",
         "interiorLightsRear",
         "doorlockstatusgas",
-        "doorlockstatusdecklid",
         "odo",
         "positionHeading"
     ],

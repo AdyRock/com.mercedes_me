@@ -8,5 +8,6 @@
     },
     "getable": true,
     "setable": false,
-    "icon": "/assets/fuel.svg"
+    "icon": "/assets/fuel.svg",
+    "insights": true
 }

@@ -18,6 +18,34 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
         this.windowOpened = this.homey.flow.getDeviceTriggerCard('window_opened');
         this.windowClosed = this.homey.flow.getDeviceTriggerCard('window_closed');
 
+        this.socGreater = this.homey.flow.getDeviceTriggerCard('soc_is_greater');
+        this.socGreater.registerRunListener(async (args, state) =>
+        {
+            const soc = args.device.getCapabilityValue('soc');
+            return ((soc > args.soc)); // true or false
+        });
+
+        this.socLess = this.homey.flow.getDeviceTriggerCard('soc_is_less');
+        this.socLess.registerRunListener(async (args, state) =>
+        {
+            const soc = args.device.getCapabilityValue('soc');
+            return ((soc < args.soc)); // true or false
+        });
+
+        this.tanklevelpercentGreater = this.homey.flow.getDeviceTriggerCard('tanklevelpercent_is_greater');
+        this.tanklevelpercentGreater.registerRunListener(async (args, state) =>
+        {
+            const tanklevel = args.device.getCapabilityValue('tanklevelpercent');
+            return ((tanklevel > args.tanklevelpercent)); // true or false
+        });
+
+        this.tanklevelpercentLess = this.homey.flow.getDeviceTriggerCard('tanklevelpercent_is_less');
+        this.tanklevelpercentLess.registerRunListener(async (args, state) =>
+        {
+            const tanklevel = args.device.getCapabilityValue('tanklevelpercent');
+            return ((tanklevel < args.tanklevelpercent)); // true or false
+        });
+
         // Register Condition Flow Cards.
         let isLockedCondition = this.homey.flow.getConditionCard('is_locked');
         isLockedCondition.registerRunListener(async (args, state) =>

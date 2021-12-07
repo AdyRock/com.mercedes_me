@@ -93,6 +93,158 @@
                     "example": "windowstatusfrontleft"
                 }
             ]
+        },
+        {
+            "id": "soc_is_greater",
+            "title": {
+                "en": "The HV battery charge becomes greater than"
+            },
+            "titleFormatted": {
+                "en": "The HV battery charge becomes greater than [[soc]]%"
+            },
+            "hint": {
+                "en": "When the HV battery charge becomes greater than the specified percentage"
+            },
+            "tokens": [
+                {
+                    "name": "soc",
+                    "type": "number",
+                    "units": "%",
+                    "title": {
+                        "en": "HV battery charge"
+                    },
+                    "example": 30
+                }
+            ],
+            "args": [
+                {
+                    "type": "number",
+                    "name": "soc",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "placeholder": {
+                        "en": "Set a value"
+                    },
+                    "title": {
+                        "en": "HV battery charge"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "soc_is_less",
+            "title": {
+                "en": "The HV battery charge becomes less than"
+            },
+            "titleFormatted": {
+                "en": "The HV battery charge becomes less than [[soc]]%"
+            },
+            "hint": {
+                "en": "When the HV battery charge becomes less than the specified percentage"
+            },
+            "tokens": [
+                {
+                    "name": "soc",
+                    "type": "number",
+                    "units": "%",
+                    "title": {
+                        "en": "HV battery charge"
+                    },
+                    "example": 30
+                }
+            ],
+            "args": [
+                {
+                    "type": "number",
+                    "name": "soc",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "placeholder": {
+                        "en": "Set a value"
+                    },
+                    "title": {
+                        "en": "HV battery charge"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "tanklevelpercent_is_greater",
+            "title": {
+                "en": "The fuel level becomes greater than"
+            },
+            "titleFormatted": {
+                "en": "The fuel level becomes greater than [[tanklevelpercent]]%"
+            },
+            "hint": {
+                "en": "When the fuel level percentage becomes greater than the specified level"
+            },
+            "tokens": [
+                {
+                    "name": "tanklevelpercent",
+                    "type": "number",
+                    "units": "%",
+                    "title": {
+                        "en": "Fuel level"
+                    },
+                    "example": 30
+                }
+            ],
+            "args": [
+                {
+                    "type": "number",
+                    "name": "tanklevelpercent",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "placeholder": {
+                        "en": "Set a value"
+                    },
+                    "title": {
+                        "en": "Fuel level"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "tanklevelpercent_is_less",
+            "title": {
+                "en": "The Fuel level becomes less than"
+            },
+            "titleFormatted": {
+                "en": "The Fuel level becomes less than [[tanklevelpercent]]%"
+            },
+            "hint": {
+                "en": "When the Fuel percentage becomes less than the specified level"
+            },
+            "tokens": [
+                {
+                    "name": "tanklevelpercent",
+                    "type": "number",
+                    "units": "%",
+                    "title": {
+                        "en": "Fuel level"
+                    },
+                    "example": 30
+                }
+            ],
+            "args": [
+                {
+                    "type": "number",
+                    "name": "tanklevelpercent",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "placeholder": {
+                        "en": "Set a value"
+                    },
+                    "title": {
+                        "en": "Fuel level"
+                    }
+                }
+            ]
         }
     ],
     "conditions": [

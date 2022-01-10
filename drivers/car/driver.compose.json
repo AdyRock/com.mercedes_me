@@ -3,6 +3,12 @@
     "name": {
         "en": "car"
     },
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "cloud"
+    ],
     "class": "lock",
     "capabilities": [
         "locked",

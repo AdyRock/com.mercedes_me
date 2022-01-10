@@ -12,7 +12,7 @@ const MercedesMeOAuth2Client = require('./lib/MercedesMeOAuth2Client');
 module.exports = class MercedesMeApp extends OAuth2App
 {
     static OAUTH2_CLIENT = MercedesMeOAuth2Client; // Default: OAuth2Client
-    static OAUTH2_DEBUG = true; // Default: false
+    static OAUTH2_DEBUG = false; // Default: false
     static OAUTH2_MULTI_SESSION = false; // Default: false
 //    static OAUTH2_DRIVERS = ['car']; // Default: all drivers
 
@@ -30,6 +30,7 @@ module.exports = class MercedesMeApp extends OAuth2App
         let ClientID = this.homey.settings.get('ClientID');
         let ClientSecret = this.homey.settings.get('ClientSecret');
         let vin = this.homey.settings.get('vin');
+        this.diagLog = '';
 
         if (ClientID && ClientSecret)
         {
@@ -46,8 +47,6 @@ module.exports = class MercedesMeApp extends OAuth2App
         {
             this.homey.settings.set('vin', '');
         }
-
-        this.homey.settings.set('logEnabled', true);
 
         if (process.env.DEBUG === '1')
         {
@@ -143,23 +142,7 @@ module.exports = class MercedesMeApp extends OAuth2App
 
             const nowTime = new Date(Date.now());
 
-            this.diagLog += "\r\n* ";
-            this.diagLog += (nowTime.getHours());
-            this.diagLog += ":";
-            this.diagLog += nowTime.getMinutes();
-            this.diagLog += ":";
-            this.diagLog += nowTime.getSeconds();
-            this.diagLog += ".";
-            let milliSeconds = nowTime.getMilliseconds().toString();
-            if (milliSeconds.length == 2)
-            {
-                this.diagLog += '0';
-            }
-            else if (milliSeconds.length == 1)
-            {
-                this.diagLog += '00';
-            }
-            this.diagLog += milliSeconds;
+            this.diagLog += nowTime.toJSON();
             this.diagLog += ": ";
             this.diagLog += "\r\n";
 
@@ -167,7 +150,14 @@ module.exports = class MercedesMeApp extends OAuth2App
             this.diagLog += "\r\n";
             if (this.diagLog.length > 60000)
             {
-                this.diagLog = this.diagLog.substr(this.diagLog.length - 60000);
+                // Remove the first 1000 characters.
+                this.diagLog = this.diagLog.substring(1000);
+                let n = this.diagLog.indexOf("\n");
+                if (n >= 0)
+                {
+                    // Remove up to and including the first \n so the log starts on a whole line
+                    this.diagLog = this.diagLog.substring(n + 1);
+                }
             }
             this.homey.api.realtime('com.mercedes_me.logupdated', { 'log': this.diagLog });
         }
@@ -215,7 +205,7 @@ module.exports = class MercedesMeApp extends OAuth2App
                 {
                     from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
                     to: Homey.env.MAIL_RECIPIENT, // list of receivers
-                    subject: "Mercedes Me " + body.logType + " log", // Subject line
+                    subject: "Mercedes Me " + body.logType + " log (" + this.homey.manifest.version + ")", // Subject line
                     text: logData // plain text body
                 });
 

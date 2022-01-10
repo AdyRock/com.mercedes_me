@@ -36,6 +36,8 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
     async onDevicePoll()
     {
+        this.homey.app.updateLog("Polling Data");
+        
         await this.updateValues();
         this.timerPollID = this.homey.setTimeout(this.onDevicePoll, (10000));
     }
@@ -49,13 +51,14 @@ module.exports = class MyBrandDevice extends OAuth2Device
         {
             try
             {
+                this.homey.app.updateLog("Fetching VS");
                 const vs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclestatus`); // 50 calls per hour
                 this.homey.app.updateLog("VS:" + this.homey.app.varToString(vs));
                 if (vs)
                 {
                     for (const iterator of vs)
                     {
-                        console.log(iterator);
+                        //console.log(iterator);
                         const key = Object.keys(iterator)[0];
                         try
                         {
@@ -87,6 +90,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
             try
             {
+                this.homey.app.updateLog("Fetching VL");
                 const vl = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclelockstatus`); // 50 calls per hour
                 this.homey.app.updateLog("VL:" + this.homey.app.varToString(vl));
                 if (vl)
@@ -95,7 +99,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
                     for (const iterator of vl)
                     {
-                        console.log(iterator);
+                        //console.log(iterator);
                         const key = Object.keys(iterator)[0];
                         try
                         {
@@ -132,17 +136,22 @@ module.exports = class MyBrandDevice extends OAuth2Device
             }
             catch (err)
             {
-                this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
+                this.homey.app.updateLog("VS & VL Error: " + this.homey.app.varToString(err), 0);
             }
 
             this.lastDetectionTime1 = Date.now();
             this.setStoreValue('lastDetectionTime1', this.lastDetectionTime1);
+        }
+        else
+        {
+            this.homey.app.updateLog("VL: Limit 50/hour");
         }
 
         if (!this.lastDetectionTime2 || (Date.now() - this.lastDetectionTime2 > (1000 * 60 * 60)))
         {
             try
             {
+                this.homey.app.updateLog("Fetching FS");
                 const fs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/fuelstatus`); // 1 calls per hour
                 this.homey.app.updateLog("FS:" + this.homey.app.varToString(fs));
 
@@ -150,7 +159,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
                 {
                     for (const iterator of fs)
                     {
-                        console.log(iterator);
+                        //console.log(iterator);
                         const key = Object.keys(iterator)[0];
                         try
                         {
@@ -171,6 +180,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
             try
             {
+                this.homey.app.updateLog("Fetching OS");
                 const os = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/payasyoudrive`); // 1 calls per hour
                 this.homey.app.updateLog("OS:" + this.homey.app.varToString(os));
 
@@ -178,7 +188,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
                 {
                     for (const iterator of os)
                     {
-                        console.log(iterator);
+                        //console.log(iterator);
                         const key = Object.keys(iterator)[0];
                         try
                         {
@@ -200,11 +210,17 @@ module.exports = class MyBrandDevice extends OAuth2Device
             this.lastDetectionTime2 = Date.now();
             this.setStoreValue('lastDetectionTime2', this.lastDetectionTime2);
         }
+        else
+        {
+            this.homey.app.updateLog("FS & OS: Limit 1/hour");
+        }
+
 
         if (!this.lastDetectionTime3 || (Date.now() - this.lastDetectionTime3 > (1000 * 60 * 30)))
         {
             try
             {
+                this.homey.app.updateLog("Fetching EV");
                 const ev = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/electricvehicle`); // 2 calls per hour
                 this.homey.app.updateLog("EV:" + this.homey.app.varToString(ev));
 
@@ -212,7 +228,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
                 {
                     for (const iterator of ev)
                     {
-                        console.log(iterator);
+                        //console.log(iterator);
                         const key = Object.keys(iterator)[0];
                         try
                         {
@@ -233,6 +249,10 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
             this.lastDetectionTime3 = Date.now();
             this.setStoreValue('lastDetectionTime3', this.lastDetectionTime3);
+        }
+        else
+        {
+            this.homey.app.updateLog("EV: Limit 2/hour");
         }
     }
 

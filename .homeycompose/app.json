@@ -1,7 +1,10 @@
 {
     "id": "com.mercedes_me",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "compatibility": ">=5.0.0",
+    "platforms": [
+        "local"
+    ],
     "sdk": 3,
     "brandColor": "#FF7D4B",
     "name": {
@@ -21,6 +24,7 @@
             }
         }
     },
+    "support": "https://github.com/AdyRock/com.mercedes_me/issues",
     "bugs": {
         "url": "https://github.com/AdyRock/com.mercedes_me/issues"
     },

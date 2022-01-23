@@ -24,6 +24,7 @@ module.exports = class MercedesMeApp extends OAuth2App
         }
         catch(err)
         {
+            this.error(err);
             console.log(err);
         }
 
@@ -128,6 +129,7 @@ module.exports = class MercedesMeApp extends OAuth2App
         }
         catch (err)
         {
+            this.error(err);
             this.log("VarToString Error: ", err);
         }
 
@@ -139,6 +141,10 @@ module.exports = class MercedesMeApp extends OAuth2App
         if ((errorLevel == 0) || this.homey.settings.get('logEnabled'))
         {
             console.log(newMessage);
+            if (errorLevel == 0)
+            {
+                this.error(newMessage);
+            }
 
             const nowTime = new Date(Date.now());
 

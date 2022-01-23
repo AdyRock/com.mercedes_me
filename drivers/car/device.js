@@ -25,6 +25,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
         this.lastDetectionTime2 = this.getStoreValue('lastDetectionTime2');
         this.lastDetectionTime3 = this.getStoreValue('lastDetectionTime3');
         this.lastDetectionTime4 = this.getStoreValue('lastDetectionTime4');
+        this.lastDetectionTime5 = this.getStoreValue('lastDetectionTime5');
 
         this.onDevicePoll = this.onDevicePoll.bind(this);
         this.onDevicePoll();
@@ -83,12 +84,18 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         }
                     }
                 }
+
+                this.lastDetectionTime1 = Date.now();
+                this.setStoreValue('lastDetectionTime1', this.lastDetectionTime1);
             }
             catch (err)
             {
                 this.homey.app.updateLog("VS Error: " + this.homey.app.varToString(err), 0);
             }
+        }
 
+        if (!this.lastDetectionTime5 || (Date.now() - this.lastDetectionTime5 > (1000 * 60 * (60 / 49))))
+        {
             try
             {
                 this.homey.app.updateLog("Fetching VL");
@@ -134,14 +141,14 @@ module.exports = class MyBrandDevice extends OAuth2Device
 
                     this.setCapabilityValue('locked', !this.unlocked);
                 }
+
+                this.lastDetectionTime5 = Date.now();
+                this.setStoreValue('lastDetectionTime5', this.lastDetectionTime5);
             }
             catch (err)
             {
-                this.homey.app.updateLog("VS & VL Error: " + this.homey.app.varToString(err), 0);
+                this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
             }
-
-            this.lastDetectionTime1 = Date.now();
-            this.setStoreValue('lastDetectionTime1', this.lastDetectionTime1);
         }
         else
         {
@@ -165,7 +172,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         try
                         {
                             const value = iterator[key].value;
-                            await this.setCapabilityValue(key, parseInt(value));
+                            await this.setCapabilityValue(key, parseInt(value)).catch(this.error());
                         }
                         catch (err)
                         {

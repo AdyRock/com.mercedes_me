@@ -24,6 +24,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
         this.lastDetectionTime1 = this.getStoreValue('lastDetectionTime1');
         this.lastDetectionTime2 = this.getStoreValue('lastDetectionTime2');
         this.lastDetectionTime3 = this.getStoreValue('lastDetectionTime3');
+        this.lastDetectionTime4 = this.getStoreValue('lastDetectionTime4');
 
         this.onDevicePoll = this.onDevicePoll.bind(this);
         this.onDevicePoll();
@@ -47,12 +48,12 @@ module.exports = class MyBrandDevice extends OAuth2Device
         let dd = this.getData();
         let vehicleId = dd.id;
 
-        if (!this.lastDetectionTime1 || (Date.now() - this.lastDetectionTime1 > (1000 * 60 * (60 / 50))))
+        if (!this.lastDetectionTime1 || (Date.now() - this.lastDetectionTime1 > (1000 * 60 * (60 / 49))))
         {
             try
             {
                 this.homey.app.updateLog("Fetching VS");
-                const vs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclestatus`); // 50 calls per hour
+                const vs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclestatus`); // 49 calls per hour
                 this.homey.app.updateLog("VS:" + this.homey.app.varToString(vs));
                 if (vs)
                 {
@@ -147,7 +148,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             this.homey.app.updateLog("VL: Limit 50/hour");
         }
 
-        if (!this.lastDetectionTime2 || (Date.now() - this.lastDetectionTime2 > (1000 * 60 * 60)))
+        if (!this.lastDetectionTime2 || (Date.now() - this.lastDetectionTime2 > (1000 * 61 * 60)))
         {
             try
             {
@@ -172,12 +173,22 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         }
                     }
                 }
+
+                this.lastDetectionTime2 = Date.now();
+                this.setStoreValue('lastDetectionTime2', this.lastDetectionTime2);
             }
             catch (err)
             {
                 this.homey.app.updateLog("FS Error: " + this.homey.app.varToString(err), 0);
             }
+        }
+        else
+        {
+            this.homey.app.updateLog("FS: Limit 1/hour");
+        }
 
+        if (!this.lastDetectionTime4 || (Date.now() - this.lastDetectionTime4 > (1000 * 61 * 60)))
+        {
             try
             {
                 this.homey.app.updateLog("Fetching OS");
@@ -201,22 +212,21 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         }
                     }
                 }
+
+                this.lastDetectionTime4 = Date.now();
+                this.setStoreValue('lastDetectionTime4', this.lastDetectionTime4);
             }
             catch (err)
             {
                 this.homey.app.updateLog("OS Error: " + this.homey.app.varToString(err), 0);
             }
-
-            this.lastDetectionTime2 = Date.now();
-            this.setStoreValue('lastDetectionTime2', this.lastDetectionTime2);
         }
         else
         {
-            this.homey.app.updateLog("FS & OS: Limit 1/hour");
+            this.homey.app.updateLog("OS: Limit 1/hour");
         }
 
-
-        if (!this.lastDetectionTime3 || (Date.now() - this.lastDetectionTime3 > (1000 * 60 * 30)))
+        if (!this.lastDetectionTime3 || (Date.now() - this.lastDetectionTime3 > (1000 * 61 * 30)))
         {
             try
             {
@@ -241,14 +251,14 @@ module.exports = class MyBrandDevice extends OAuth2Device
                         }
                     }
                 }
+
+                this.lastDetectionTime3 = Date.now();
+                this.setStoreValue('lastDetectionTime3', this.lastDetectionTime3);
             }
             catch (err)
             {
                 this.homey.app.updateLog("EV Error: " + this.homey.app.varToString(err), 0);
             }
-
-            this.lastDetectionTime3 = Date.now();
-            this.setStoreValue('lastDetectionTime3', this.lastDetectionTime3);
         }
         else
         {

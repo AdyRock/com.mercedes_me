@@ -16,5 +16,8 @@
   },
   "0.1.4": {
     "en": "Extra diagnostic logging."
+  },
+  "0.1.5": {
+    "en": "Failed data collection now retries on the next poll. Improved OAuth error report."
   }
 }

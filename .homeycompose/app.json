@@ -1,6 +1,6 @@
 {
     "id": "com.mercedes_me",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "compatibility": ">=5.0.0",
     "platforms": [
         "local"

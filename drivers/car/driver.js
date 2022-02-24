@@ -134,14 +134,82 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
     async onPairListDevices({ oAuth2Client })
     {
         let vehicleId = this.homey.settings.get('vin');
-        const things = await oAuth2Client.getThings(`/vehicles/${vehicleId}/containers/payasyoudrive/`);
-        return [
+        this.homey.app.updateLog('OnPairListDevices: ' + (vehicleId ? "VIN Detected" : "Missing VIN"));
+        if (!vehicleId)
         {
-            name: 'My Car',
-            data:
+            throw new Error('Missing VIN. Please enter your VIN in the Configure app page.')
+        }
+        
+        try
+        {
+            const things = await oAuth2Client.getThings(`/vehicles/${vehicleId}/containers/payasyoudrive/`);
+            return [
             {
-                id: vehicleId,
+                name: 'My Car',
+                data:
+                {
+                    id: vehicleId,
+                }
+            }];
+        }
+        catch (err)
+        {
+            this.homey.app.updateLog(`Get devices error: ${this.homey.app.varToString(err)}`, 0);
+            if (err.message == 'Forbidden')
+            {
+                throw new Error('Forbidden: Check the VIN number is entered correctly');
             }
-        }];
+            throw(err);
+        }
+    }
+
+    async onPair(session)
+    {
+        let clientId = this.homey.settings.get('ClientID');
+        let clientSecret = this.homey.settings.get('ClientSecret');
+        let vin =  this.homey.settings.get('vin');
+
+        session.setHandler('connection_setup', async () =>
+        {
+            // Initialise page with last used token and user name
+            return { clientId, clientSecret, vin };
+        });
+
+        session.setHandler('api_save', async data =>
+        {
+            if (!data.clientId)
+            {
+                return { ok: false, err: this.homey.__('settings.missingClientId') };
+            }
+            if (!data.clientSecret)
+            {
+                return { ok: false, err: this.homey.__('settings.missingClientSecret') };
+            }
+
+            if (!data.vin)
+            {
+                return { ok: false, err: this.homey.__('settings.missingVin') };
+            }
+
+            try
+            {
+                // Get the current apiKey using the username and password
+                this.homey.app.setOAuth2Config({'clientId': data.clientId, 'clientSecret': data.clientSecret});
+                await this.homey.app.onOAuth2Init();
+            }
+            catch (err)
+            {
+                return { ok: false, err: this.homey.__('pair.failed') };
+            }
+
+            // Successful connection so save the credentials
+            this.homey.settings.set('ClientID', data.clientId);
+            this.homey.settings.set('ClientSecret', data.clientSecret);
+            this.homey.settings.set('vin', data.vin);
+
+            super.onPair(session);
+
+            return { ok: true };
+        });
     }
 };

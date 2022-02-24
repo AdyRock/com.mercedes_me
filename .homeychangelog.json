@@ -19,5 +19,14 @@
   },
   "0.1.5": {
     "en": "Failed data collection now retries on the next poll. Improved OAuth error report."
+  },
+  "0.1.6": {
+    "en": "Added more logging to try and detect cause of failed connections."
+  },
+  "0.1.7": {
+    "en": "Removed unused scopes. Added connection credentials stage to add device wizard"
+  },
+  "0.1.8": {
+    "en": "Updated some images"
   }
 }

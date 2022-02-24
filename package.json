@@ -1,12 +1,12 @@
 {
   "name": "com.mercedes_me",
-  "version": "0.1.5",
+  "version": "0.1.8",
   "main": "app.js",
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.1.0"
   },
   "dependencies": {
-    "node-fetch": "^2.6.6",
+    "node-fetch": "^2.6.7",
     "nodemailer": "^6.7.2",
     "promise-queue": "^2.2.5"
   },

@@ -12,7 +12,7 @@ const MercedesMeOAuth2Client = require('./lib/MercedesMeOAuth2Client');
 module.exports = class MercedesMeApp extends OAuth2App
 {
     static OAUTH2_CLIENT = MercedesMeOAuth2Client; // Default: OAuth2Client
-    static OAUTH2_DEBUG = false; // Default: false
+    static OAUTH2_DEBUG = true; // Default: false
     static OAUTH2_MULTI_SESSION = false; // Default: false
 //    static OAUTH2_DRIVERS = ['car']; // Default: all drivers
 

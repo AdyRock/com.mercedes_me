@@ -142,7 +142,7 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
         
         try
         {
-            const things = await oAuth2Client.getThings(`/vehicles/${vehicleId}/containers/payasyoudrive/`);
+            const things = await oAuth2Client.getThings(`vehicles/${vehicleId}/containers/payasyoudrive`);
             return [
             {
                 name: 'My Car',

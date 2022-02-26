@@ -28,5 +28,8 @@
   },
   "0.1.8": {
     "en": "Updated some images"
+  },
+  "0.1.9": {
+    "en": "Replaced a scope that allowed the token refresh"
   }
 }

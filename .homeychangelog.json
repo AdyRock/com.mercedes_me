@@ -31,5 +31,11 @@
   },
   "0.1.9": {
     "en": "Replaced a scope that allowed the token refresh"
+  },
+  "0.1.10": {
+    "en": "Updated Athom OAuth module"
+  },
+  "1.0.0": {
+    "en": "Updated for new Mercedes authentication"
   }
 }

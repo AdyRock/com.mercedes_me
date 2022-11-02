@@ -1,28 +1,28 @@
 {
-  "_from": "homey-oauth2app@3.2.1",
-  "_id": "homey-oauth2app@3.2.1",
+  "_from": "homey-oauth2app@3.3.0",
+  "_id": "homey-oauth2app@3.3.0",
   "_inBundle": false,
-  "_integrity": "sha512-uV4Mcw2gg0tKaWiIsaeQbiIfTI+rUPKGzrLZatHbBCvqv6ekZ7uN37V66dDWYn0E//0EgGwn+42bGW8YKayn5g==",
+  "_integrity": "sha512-nbH6u4HAPxTXwQmDYjwz4asxJVnD4n/JoFH7aZfSsfyWXR+6MqRpdTJp3FrCS3YuPXcZO0Y7kwlUZKcbXHgXww==",
   "_location": "/homey-oauth2app",
   "_phantomChildren": {},
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "homey-oauth2app@3.2.1",
+    "raw": "homey-oauth2app@3.3.0",
     "name": "homey-oauth2app",
     "escapedName": "homey-oauth2app",
-    "rawSpec": "3.2.1",
+    "rawSpec": "3.3.0",
     "saveSpec": null,
-    "fetchSpec": "3.2.1"
+    "fetchSpec": "3.3.0"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/homey-oauth2app/-/homey-oauth2app-3.2.1.tgz",
-  "_shasum": "c41c2d0c5bd02b0d8968055d55738e82c7fb5e88",
-  "_spec": "homey-oauth2app@3.2.1",
-  "_where": "C:\\Users\\Adrian\\com.mercedes_me",
+  "_resolved": "https://registry.npmjs.org/homey-oauth2app/-/homey-oauth2app-3.3.0.tgz",
+  "_shasum": "55e0768c8a899aed930da1202f0278298b7768d2",
+  "_spec": "homey-oauth2app@3.3.0",
+  "_where": "C:\\Users\\Adrian\\com.switchbot",
   "author": "",
   "bundleDependencies": false,
   "config": {
@@ -34,16 +34,40 @@
     "promise-queue": "^2.2.5"
   },
   "deprecated": false,
-  "description": "This module does the heavy lifting for a [Homey App](https://developer.athom.com) that talks to any OAuth2 Web API.",
+  "description": "<header>",
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
-    "eslint-config-athom": "^2.0.8"
+    "eslint-config-athom": "^2.0.8",
+    "homey-jsdoc-template": "github:athombv/homey-jsdoc-template#1.4",
+    "jsdoc": "^3.6.6",
+    "jsdoc-ts-utils": "^1.1.2",
+    "npm-watch": "^0.6.0",
+    "serve": "^11.3.1",
+    "watch": "^1.0.2"
   },
   "license": "ISC",
   "main": "index.js",
   "name": "homey-oauth2app",
   "scripts": {
+    "build": "npm ci; npm run jsdoc:clean; npm run jsdoc;",
+    "jsdoc": "jsdoc --configure ./docs/jsdoc.json;",
+    "jsdoc:clean": "rm -rf ./build",
+    "jsdoc:watch": "watch \"npm run jsdoc:clean && npm run jsdoc\" lib docs \"node_modules/homey-jsdoc-template\"",
+    "lint": "eslint .",
+    "serve": "concurrently \"serve build/\" \"npm run jsdoc:watch\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.2.1"
+  "version": "3.3.0",
+  "watch": {
+    "jsdoc": {
+      "patterns": [
+        "lib",
+        "README.md"
+      ],
+      "extensions": [
+        "js"
+      ]
+    }
+  }
 }

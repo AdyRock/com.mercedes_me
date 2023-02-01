@@ -27,8 +27,50 @@ module.exports = class MyBrandDevice extends OAuth2Device
         this.lastDetectionTime4 = this.getStoreValue('lastDetectionTime4');
         this.lastDetectionTime5 = this.getStoreValue('lastDetectionTime5');
 
+        const settings = this.getSettings();
+        if (!settings.vs_interval)
+        {
+            this.vs_interval_ms = 72 * 1000;
+            this.vl_interval_ms = 72 * 1000;
+            this.fs_interval_ms = 3600 * 1000;
+            this.os_interval_ms = 3600 * 1000;
+            this.ev_interval_ms = 120 * 1000;
+        }
+        else
+        {
+            this.vs_interval_ms = settings.vs_interval * 1000;
+            this.vl_interval_ms = settings.vl_interval * 1000;
+            this.fs_interval_ms = settings.fs_interval * 1000;
+            this.os_interval_ms = settings.os_interval * 1000;
+            this.ev_interval_ms = settings.ev_interval * 1000;
+        }
+
         this.onDevicePoll = this.onDevicePoll.bind(this);
         this.onDevicePoll();
+    }
+
+    async onSettings({ oldSettings, newSettings, changedKeys })
+    {
+        if (changedKeys.indexOf("vs_interval") >= 0)
+        {
+            this.vs_interval_ms = newSettings.vs_interval * 1000;
+        }
+        if (changedKeys.indexOf("vl_interval") >= 0)
+        {
+            this.vl_interval_ms = newSettings.vl_interval * 1000;
+        }
+        if (changedKeys.indexOf("fs_interval") >= 0)
+        {
+            this.fs_interval_ms = newSettings.fs_interval * 1000;
+        }
+        if (changedKeys.indexOf("os_interval") >= 0)
+        {
+            this.os_interval_ms = newSettings.os_interval * 1000;
+        }
+        if (changedKeys.indexOf("ev_interval") >= 0)
+        {
+            this.ev_interval_ms = newSettings.ev_interval * 1000;
+        }
     }
 
     async onCapabilityLocked(value, opts)
@@ -41,6 +83,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
         this.homey.app.updateLog("Polling Data");
         
         await this.updateValues();
+        // Check again in 10 seconds
         this.timerPollID = this.homey.setTimeout(this.onDevicePoll, (10000));
     }
 
@@ -49,12 +92,12 @@ module.exports = class MyBrandDevice extends OAuth2Device
         let dd = this.getData();
         let vehicleId = dd.id;
 
-        if (!this.lastDetectionTime1 || (Date.now() - this.lastDetectionTime1 > (1000 * 60 * (60 / 49))))
+        if (!this.lastDetectionTime1 || ((Date.now() - this.lastDetectionTime1) > this.vs_interval_ms))
         {
             try
             {
                 this.homey.app.updateLog("Fetching VS");
-                const vs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclestatus`); // 49 calls per hour
+                const vs = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/vehiclestatus`); // 50 calls per hour
                 this.homey.app.updateLog("VS:" + this.homey.app.varToString(vs));
                 if (vs)
                 {
@@ -91,10 +134,15 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("VS Error: " + this.homey.app.varToString(err), 0);
+                if (err == 'Forbidden')
+                {
+                    this.lastDetectionTime1 = Date.now();
+                    this.setStoreValue('lastDetectionTime1', this.lastDetectionTime1);
+                }
             }
         }
 
-        if (!this.lastDetectionTime5 || (Date.now() - this.lastDetectionTime5 > (1000 * 60 * (60 / 49))))
+        if (!this.lastDetectionTime5 || (Date.now() - this.lastDetectionTime5 > this.vl_interval_ms))
         {
             try
             {
@@ -148,6 +196,11 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
+                if (err == 'Forbidden')
+                {
+                    this.lastDetectionTime5 = Date.now();
+                    this.setStoreValue('lastDetectionTime5', this.lastDetectionTime5);
+                }
             }
         }
         else
@@ -155,7 +208,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             this.homey.app.updateLog("VL: Limit 50/hour");
         }
 
-        if (!this.lastDetectionTime2 || (Date.now() - this.lastDetectionTime2 > (1000 * 61 * 60)))
+        if (!this.lastDetectionTime2 || (Date.now() - this.lastDetectionTime2 > this.fs_interval_ms))
         {
             try
             {
@@ -187,6 +240,11 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("FS Error: " + this.homey.app.varToString(err), 0);
+                if (err == 'Forbidden')
+                {
+                    this.lastDetectionTime2 = Date.now();
+                    this.setStoreValue('lastDetectionTime2', this.lastDetectionTime2);
+                }
             }
         }
         else
@@ -194,7 +252,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             this.homey.app.updateLog("FS: Limit 1/hour");
         }
 
-        if (!this.lastDetectionTime4 || (Date.now() - this.lastDetectionTime4 > (1000 * 61 * 60)))
+        if (!this.lastDetectionTime4 || (Date.now() - this.lastDetectionTime4 > this.os_interval_ms))
         {
             try
             {
@@ -226,6 +284,11 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("OS Error: " + this.homey.app.varToString(err), 0);
+                if (err == 'Forbidden')
+                {
+                    this.lastDetectionTime4 = Date.now();
+                    this.setStoreValue('lastDetectionTime4', this.lastDetectionTime4);
+                }
             }
         }
         else
@@ -233,12 +296,12 @@ module.exports = class MyBrandDevice extends OAuth2Device
             this.homey.app.updateLog("OS: Limit 1/hour");
         }
 
-        if (!this.lastDetectionTime3 || (Date.now() - this.lastDetectionTime3 > (1000 * 61 * 30)))
+        if (!this.lastDetectionTime3 || (Date.now() - this.lastDetectionTime3 > this.ev_interval_ms))
         {
             try
             {
                 this.homey.app.updateLog("Fetching EV");
-                const ev = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/electricvehicle`); // 2 calls per hour
+                const ev = await this.oAuth2Client.getThings(`vehicles/${vehicleId}/containers/electricvehicle`); // 30 calls per hour
                 this.homey.app.updateLog("EV:" + this.homey.app.varToString(ev));
 
                 if (ev)
@@ -265,11 +328,16 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("EV Error: " + this.homey.app.varToString(err), 0);
+                if (err == 'Forbidden')
+                {
+                    this.lastDetectionTime3 = Date.now();
+                    this.setStoreValue('lastDetectionTime3', this.lastDetectionTime3);
+                }
             }
         }
         else
         {
-            this.homey.app.updateLog("EV: Limit 2/hour");
+            this.homey.app.updateLog("EV: Limit 30/hour");
         }
     }
 

@@ -65,5 +65,98 @@
             "id": "login_oauth2",
             "template": "login_oauth2"
         }
+    ],
+    "settings": [
+        {
+            "type": "group",
+            "label": {
+                "en": "API Polling intervals."
+            },
+            "children": [
+                {
+                    "id": "label",
+                    "type": "label",
+                    "label": {
+                        "en": "Note"
+                    },
+                    "value": "These are per car, so extend them if you have another app using the API. The minimum values are noted in the information of each setting."
+                },
+                {
+                    "id": "vs_interval",
+                    "type": "number",
+                    "label": {
+                        "en": "Vehicle Status"
+                    },
+                    "value": 72,
+                    "min": 72,
+                    "units": {
+                        "en": "seconds"
+                    },
+                    "hint": {
+                        "en": "The time between calls to the Vehicle Status API. API Maximum = 50 calls per hour so"
+                    }
+                },
+                {
+                    "id": "vl_interval",
+                    "type": "number",
+                    "label": {
+                        "en": "Vehicle Lock Status"
+                    },
+                    "value": 72,
+                    "min": 72,
+                    "units": {
+                        "en": "seconds"
+                    },
+                    "hint": {
+                        "en": "The time between calls to the Vehicle Lock Status API. API Maximum = 50 calls per hour so"
+                    }
+                },
+                {
+                    "id": "fs_interval",
+                    "type": "number",
+                    "label": {
+                        "en": "Fuel Status"
+                    },
+                    "value": 3600,
+                    "min": 3600,
+                    "units": {
+                        "en": "seconds"
+                    },
+                    "hint": {
+                        "en": "The time between calls to the Fuel Status API. API Maximum = 1 call per hour so"
+                    }
+                },
+                {
+                    "id": "os_interval",
+                    "type": "number",
+                    "label": {
+                        "en": "Pay As You Drive"
+                    },
+                    "value": 3600,
+                    "min": 3600,
+                    "units": {
+                        "en": "seconds"
+                    },
+                    "hint": {
+                        "en": "The time between calls to the Pay As You Drive API. API Maximum = 1 call per hour so"
+                    }
+                },
+                {
+                    "id": "ev_interval",
+                    "type": "number",
+                    "label": {
+                        "en": "Electric Vehicle"
+                    },
+                    "value": 120,
+                    "min": 120,
+                    "units": {
+                        "en": "seconds"
+                    },
+                    "hint": {
+                        "en": "The time between calls to the Electric Vehicle API. API Maximum = 30 calls per hour so"
+                    }
+                }
+            ]
+        }
     ]
 }

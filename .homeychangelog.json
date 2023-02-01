@@ -37,5 +37,8 @@
   },
   "1.0.0": {
     "en": "Updated for new Mercedes authentication"
+  },
+  "1.0.1": {
+    "en": "Fix for high retry speed when API call fails. Added setting to device to control the polling interval."
   }
 }

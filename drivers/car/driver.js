@@ -196,12 +196,9 @@ module.exports = class MercedesMeDriver extends OAuth2Driver
 
             try
             {
-                if (process.env.DEBUG === '0')
-                {
-                    // Get the current apiKey using the username and password
-                    this.homey.app.setOAuth2Config({'clientId': data.clientId, 'clientSecret': data.clientSecret});
-                    await this.homey.app.onOAuth2Init();
-                }
+                // Get the current apiKey using the username and password
+                this.homey.app.setOAuth2Config({'clientId': data.clientId, 'clientSecret': data.clientSecret});
+                await this.homey.app.onOAuth2Init();
             }
             catch (err)
             {

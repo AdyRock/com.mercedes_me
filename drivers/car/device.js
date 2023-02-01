@@ -134,7 +134,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("VS Error: " + this.homey.app.varToString(err), 0);
-                if (err == 'Forbidden')
+                if (err.message == 'Forbidden')
                 {
                     this.lastDetectionTime1 = Date.now();
                     this.setStoreValue('lastDetectionTime1', this.lastDetectionTime1);
@@ -196,7 +196,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("VL Error: " + this.homey.app.varToString(err), 0);
-                if (err == 'Forbidden')
+                if (err.message == 'Forbidden')
                 {
                     this.lastDetectionTime5 = Date.now();
                     this.setStoreValue('lastDetectionTime5', this.lastDetectionTime5);
@@ -240,7 +240,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("FS Error: " + this.homey.app.varToString(err), 0);
-                if (err == 'Forbidden')
+                if (err.message == 'Forbidden')
                 {
                     this.lastDetectionTime2 = Date.now();
                     this.setStoreValue('lastDetectionTime2', this.lastDetectionTime2);
@@ -284,7 +284,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("OS Error: " + this.homey.app.varToString(err), 0);
-                if (err == 'Forbidden')
+                if (err.message == 'Forbidden')
                 {
                     this.lastDetectionTime4 = Date.now();
                     this.setStoreValue('lastDetectionTime4', this.lastDetectionTime4);
@@ -328,7 +328,7 @@ module.exports = class MyBrandDevice extends OAuth2Device
             catch (err)
             {
                 this.homey.app.updateLog("EV Error: " + this.homey.app.varToString(err), 0);
-                if (err == 'Forbidden')
+                if (err.message == 'Forbidden')
                 {
                     this.lastDetectionTime3 = Date.now();
                     this.setStoreValue('lastDetectionTime3', this.lastDetectionTime3);

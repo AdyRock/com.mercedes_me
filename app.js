@@ -1,12 +1,12 @@
 'use strict';
 if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true);
+    require('inspector').open(9222, '0.0.0.0', false);
 }
 const nodemailer = require("nodemailer");
 
 const Homey = require('homey');
-const { OAuth2App } = require('/lib/homey-oauth2app');
+const { OAuth2App } = require('./lib/homey-oauth2app');
 const MercedesMeOAuth2Client = require('./lib/MercedesMeOAuth2Client');
 
 module.exports = class MercedesMeApp extends OAuth2App

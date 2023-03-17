@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const { OAuth2Driver } = require('/lib/homey-oauth2app');
+const { OAuth2Driver } = require('../../lib/homey-oauth2app');
 
 module.exports = class MercedesMeDriver extends OAuth2Driver
 {
